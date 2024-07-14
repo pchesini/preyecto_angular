@@ -1,11 +1,29 @@
 import { Component, booleanAttribute, numberAttribute, signal } from '@angular/core';
 import { Tarea } from '../interfaces/tarea';
+import { FormControl, Validators } from '@angular/forms'; 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
+ 
 })
 export class HomeComponent {
+  formHome = new FormControl('',{
+    nonNullable: true,
+    validators: [
+      Validators.required,
+      Validators.minLength(3),
+     // this.noLeadingSpacesValidator() corregir esto
+    ]
+  }); 
+  submitted = false;
+  ngOnInit() {
+    this.formHome.valueChanges.subscribe(() => {
+      this.removeLeadingSpaces();
+    });
+  }
+
   tareas =  signal<Tarea[]>([
    {
     id : Date.now(),
@@ -18,13 +36,17 @@ export class HomeComponent {
     completado: false,
    }
   ]);
-  //agregar un nuevo elemento
-  changeHandler(event : Event ){
-    const input = event.target as HTMLInputElement;
-    const nuevaTarea = input.value;
-    this.addTarea(nuevaTarea);
-    // agrego al array una nueva tarea trayendome antes las tareas previas
-    //this.tareas.update((tareas) => [...tareas, nuevaTarea]);
+
+
+  //agregar un nuevo elemento( )
+  changeHandler(){
+    if (this.formHome.valid){
+      const valor = this.formHome.value;
+      this.addTarea(valor);
+      this.formHome.setValue('');
+    }
+    
+
   }
   addTarea(titulo: string) {
     const nuevaTarea = {
@@ -56,4 +78,19 @@ export class HomeComponent {
       })
     })
   }
+  // Validador personalizado para no permitir espacios al principio
+noLeadingSpacesValidator() {
+  return (control: FormControl) => {
+    const isValid = control.value && control.value.trim().length === control.value.length;
+    return isValid ? null : { leadingSpaces: true };
+  };
+}
+removeLeadingSpaces() {
+  const currentValue = this.formHome.value;
+  if (currentValue) {
+    const trimmedValue = currentValue.replace(/^\s+/, '');
+    this.formHome.setValue(trimmedValue, { emitEvent: false });
+  }
+}
+
 }

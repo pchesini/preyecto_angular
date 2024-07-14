@@ -6,6 +6,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { LabsComponent } from './pages/labs/labs.component';
 
 import { routes } from './app.routes';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -14,8 +15,9 @@ import { routes } from './app.routes';
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
     //RouterModule.forChild(childRoutes)
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

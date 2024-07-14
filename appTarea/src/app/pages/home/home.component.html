@@ -8,9 +8,20 @@
           placeholder="Nueva tarea"
           autofocus
           type="text"
-          (change)="changeHandler($event)"
+         [formControl]="formHome"
+         (keydown.enter)="changeHandler()"
         />
+        <div *ngIf="submitted && formHome.errors">
+          <div *ngIf="formHome.hasError('required')">
+            El campo no debe estar vacío.
+          </div>
+          <div *ngIf="formHome.hasError('leadingSpaces')">
+            No se permiten espacios al principio.
+          </div>
+        </div>
       </div>
+         <!--(change)="changeHandler($event)"  lo cambio por el formulario-->
+     
     </header>
     <div class="container todoapp-wrapper">
     <!-- Esta sección debe estar oculta de forma predeterminada y mostrarse cuando hay tareas -->
@@ -50,17 +61,16 @@
         <!-- uso string interpolation -->
         <span class="todo-count">
         <!--le agrego la condicion de que si es una sola tarea la muestre en singular-->
-          <!-- <strong>{{ tareas().length }}</strong> 
-          {{ tareas().length === 1 ? 'Tarea' : 'Tareas' }} -->
+          <strong>{{ tareas().length }}</strong> 
+          {{ tareas().length === 1 ? 'Tarea' : 'Tareas' }}
         </span>
         <!--usando ngIf
-        
-        
-        -->
         <span *ngIf="tareas().length === 1; else miBloque">
           Tarea
         </span>
         <ng-template #miBloque>Tareas</ng-template>
+        -->
+        
         <!-- Elimine esto si no implementa el enrutamiento -->
         <ul class="filters">
           <li>
