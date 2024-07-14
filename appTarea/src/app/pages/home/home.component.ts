@@ -17,12 +17,12 @@ export class HomeComponent {
      // this.noLeadingSpacesValidator() corregir esto
     ]
   }); 
-  submitted = false;
-  ngOnInit() {
+ // submitted = false;
+/*   ngOnInit() {
     this.formHome.valueChanges.subscribe(() => {
       this.removeLeadingSpaces();
     });
-  }
+  } */
 
   tareas =  signal<Tarea[]>([
    {
@@ -41,7 +41,7 @@ export class HomeComponent {
   //agregar un nuevo elemento( )
   changeHandler(){
     if (this.formHome.valid){
-      const valor = this.formHome.value;
+      const valor = this.formHome.value.trim();
       this.addTarea(valor);
       this.formHome.setValue('');
     }
@@ -79,7 +79,7 @@ export class HomeComponent {
     })
   }
   // Validador personalizado para no permitir espacios al principio
-noLeadingSpacesValidator() {
+/* noLeadingSpacesValidator() {
   return (control: FormControl) => {
     const isValid = control.value && control.value.trim().length === control.value.length;
     return isValid ? null : { leadingSpaces: true };
@@ -92,5 +92,5 @@ removeLeadingSpaces() {
     this.formHome.setValue(trimmedValue, { emitEvent: false });
   }
 }
-
+ */
 }

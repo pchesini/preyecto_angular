@@ -11,13 +11,11 @@
          [formControl]="formHome"
          (keydown.enter)="changeHandler()"
         />
-        <div *ngIf="submitted && formHome.errors">
+        <div *ngIf="formHome.errors">
           <div *ngIf="formHome.hasError('required')">
             El campo no debe estar vacío.
           </div>
-          <div *ngIf="formHome.hasError('leadingSpaces')">
-            No se permiten espacios al principio.
-          </div>
+          
         </div>
       </div>
          <!--(change)="changeHandler($event)"  lo cambio por el formulario-->
