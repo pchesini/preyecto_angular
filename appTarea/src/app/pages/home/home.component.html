@@ -16,6 +16,7 @@
     <!-- Esta sección debe estar oculta de forma predeterminada y mostrarse cuando hay tareas -->
       <section class="main">
         <ul class="todo-list">
+          <!--con el index as i me da la posicion de la tarea para usarla al momento de eliminar-->
           <li *ngFor="let tarea of tareas(); index as i">
             <div class="view">
               <input class="toggle" type="checkbox" [checked]="tarea.completado" (change)="updateTarea(i)"/>
@@ -46,8 +47,12 @@
       </section>
       <!-- Este pie de página debe estar oculto de forma predeterminada y mostrarse cuando hay tareas -->
       <footer class="footer">
-        <!-- Esto debería ser `Quedan 0 elementos` por defecto -->
-        <span class="todo-count"><strong>{{ tareas().length }}</strong> Tareas</span>
+        <!-- uso string interpolation -->
+        <span class="todo-count">
+        <!--le agrego la condicion de que si es una sola tarea la muestre en singular-->
+          <strong>{{ tareas().length }}</strong> 
+          {{ tareas().length === 1 ? 'Tarea' : 'Tareas' }}
+        </span>
         <!-- Elimine esto si no implementa el enrutamiento -->
         <ul class="filters">
           <li>
