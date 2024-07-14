@@ -50,9 +50,17 @@
         <!-- uso string interpolation -->
         <span class="todo-count">
         <!--le agrego la condicion de que si es una sola tarea la muestre en singular-->
-          <strong>{{ tareas().length }}</strong> 
-          {{ tareas().length === 1 ? 'Tarea' : 'Tareas' }}
+          <!-- <strong>{{ tareas().length }}</strong> 
+          {{ tareas().length === 1 ? 'Tarea' : 'Tareas' }} -->
         </span>
+        <!--usando ngIf
+        
+        
+        -->
+        <span *ngIf="tareas().length === 1; else miBloque">
+          Tarea
+        </span>
+        <ng-template #miBloque>Tareas</ng-template>
         <!-- Elimine esto si no implementa el enrutamiento -->
         <ul class="filters">
           <li>
