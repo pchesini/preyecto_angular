@@ -8,12 +8,12 @@
           placeholder="Nueva tarea"
           autofocus
           type="text"
-          (change)="changeHandrer($event)"
+          (change)="changeHandler($event)"
         />
       </div>
     </header>
     <div class="container todoapp-wrapper">
-      <!-- This section should be hidden by default and shown when there are todos -->
+    <!-- Esta sección debe estar oculta de forma predeterminada y mostrarse cuando hay tareas -->
       <section class="main">
         <ul class="todo-list">
           <li *ngFor="let tarea of tareas(); index as i">
@@ -44,11 +44,11 @@
         -->
         </ul>
       </section>
-      <!-- This footer should be hidden by default and shown when there are todos -->
+      <!-- Este pie de página debe estar oculto de forma predeterminada y mostrarse cuando hay tareas -->
       <footer class="footer">
-        <!-- This should be `0 items left` by default -->
+        <!-- Esto debería ser `Quedan 0 elementos` por defecto -->
         <span class="todo-count"><strong>{{ tareas().length }}</strong> Tareas</span>
-        <!-- Remove this if you don't implement routing -->
+        <!-- Elimine esto si no implementa el enrutamiento -->
         <ul class="filters">
           <li>
             <a routerLink="/" class="selected">Todas</a>
@@ -60,8 +60,8 @@
             <a routerLink="/completed">Completado</a>
           </li>
         </ul>
-        <!-- Hidden if no completed items are left ↓ -->
-        <button class="clear-completed">Clear completed</button>
+        <!-- Oculto si no quedan elementos completos ↓ -->
+        <button class="clear-completed">Clear</button>
       </footer>
     </div>
   </section>

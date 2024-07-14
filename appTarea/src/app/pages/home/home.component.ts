@@ -19,7 +19,7 @@ export class HomeComponent {
    }
   ]);
   //agregar un nuevo elemento
-  changeHandrer(event : Event ){
+  changeHandler(event : Event ){
     const input = event.target as HTMLInputElement;
     const nuevaTarea = input.value;
     this.addTarea(nuevaTarea);
@@ -32,17 +32,22 @@ export class HomeComponent {
       titulo,
       completado: false,
     };
+    // usa el estado anterior del array[...tareas] y le agrega una nueva tarea
     this.tareas.update((tareas) => [...tareas, nuevaTarea]);
 
   }
+  //recibo la posicion
   deleteTarea(index : number){
+    //recibo el array , filtro la posicion y pregunto si es distinta a la que recibo por parametro
     this.tareas.update((tareas)=> tareas.filter((tarea, position)=> position !== index));
   }
   updateTarea(index: number){
     this.tareas.update((tareas) =>{
+      //recibe el objeto y la posicion del mismo
       return tareas.map((tarea, position) => {
         if (position === index) {
           return {
+            //cambia el estado anterior de la tarea
             ...tarea,
             completado: !tarea.completado
           }
