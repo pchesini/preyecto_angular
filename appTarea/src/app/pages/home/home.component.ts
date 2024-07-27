@@ -1,4 +1,4 @@
-import { Component, booleanAttribute, numberAttribute, signal } from '@angular/core';
+import { Component, booleanAttribute, computed, numberAttribute, signal } from '@angular/core';
 import { Tarea } from '../interfaces/tarea';
 import { FormControl, Validators } from '@angular/forms'; 
 
@@ -37,8 +37,19 @@ export class HomeComponent {
    }
   ]);
 
-
-  //agregar un nuevo elemento( )
+  filter = signal< 'todas' | 'pendiente' | 'completado'>('todas');
+  tareasByfilter = computed(() => {
+    const filter = this.filter();
+    const tareas = this.tareas();
+    if (filter === 'pendiente'){
+      return tareas.filter( tarea => !tarea.completado)
+    }
+    if (filter ==='completado') {
+      return tareas.filter(tareas => tareas.completado)
+    }
+    return tareas;
+  })
+  //agregar un nuevo elemento( ) 
   changeHandler(){
     if (this.formHome.valid){
       const valor = this.formHome.value.trim();
@@ -124,5 +135,7 @@ updateEdicionTitulo(index: number, event: Event){
     })
   })
 }
-
+changeFilter(filter: 'todas' | 'pendiente' | 'completado'){
+  this.filter.set(filter);
+}
 }

@@ -2,6 +2,7 @@
     <header class="header">
       <div class="container">
         <h1>Mi Día</h1>
+        
         <p>Todas mis tareas en un sólo lugar</p>
         <input
           class="new-todo"
@@ -28,7 +29,7 @@
           <!--con el index as i me da la posicion de la tarea para usarla al momento de eliminar
            se usa la clase completed para tachar la tarea-->
           <li (dblclick)="updateEdicion(i)" 
-          *ngFor="let tarea of tareas(); index as i" 
+          *ngFor="let tarea of tareasByfilter(); index as i" 
           [class.editing]="tarea.editando"
           [class.completed]="tarea.completado">
             <div class="view">
@@ -76,13 +77,13 @@
         <!-- Elimine esto si no implementa el enrutamiento -->
         <ul class="filters">
           <li>
-            <a routerLink="/" class="selected">Todas</a>
+            <a (click)="changeFilter('todas')" class="selected">Todas</a>
           </li>
           <li>
-            <a routerLink="/pending">Pendiente</a>
+            <a (click)="changeFilter('pendiente')">Pendiente</a>
           </li>
           <li>
-            <a routerLink="/completed">Completado</a>
+            <a (click)="changeFilter('completado')">Completado</a>
           </li>
         </ul>
         <!-- Oculto si no quedan elementos completos ↓ -->
