@@ -12,7 +12,7 @@
          (keydown.enter)="changeHandler()"
         />
         <div *ngIf="formHome.errors">
-          <div *ngIf="formHome.hasError('required')">
+          <div *ngIf="formHome.hasError('required')"><!--Solucionar el campo que se muestra siempre-->
             El campo no debe estar vacío.
           </div>
           
@@ -26,7 +26,7 @@
       <section class="main">
         <ul class="todo-list">
           <!--con el index as i me da la posicion de la tarea para usarla al momento de eliminar-->
-          <li *ngFor="let tarea of tareas(); index as i">
+          <li *ngFor="let tarea of tareas(); index as i" [class.completed]="tarea.completado">
             <div class="view">
               <input class="toggle" type="checkbox" [checked]="tarea.completado" (change)="updateTarea(i)"/>
               <label>{{ tarea.titulo }}</label>
@@ -34,15 +34,15 @@
             </div>
             <input class="edit" value="Learn JavaScript" />
           </li>
-          <!--
-          <li>
+        <!--
+          <li class="completed">
             <div class="view">
               <input class="toggle" type="checkbox" />
               <label>Buy a unicorn</label>
               <button class="destroy"></button>
             </div>
             <input class="edit" value="Buy a unicorn" />
-          </li>
+          </li>-->
           <li class="editing">
             <div class="view">
               <input class="toggle" type="checkbox" />
@@ -51,7 +51,7 @@
             </div>
             <input class="edit" value="Make dishes" />
           </li>
-        -->
+        <!---->
         </ul>
       </section>
       <!-- Este pie de página debe estar oculto de forma predeterminada y mostrarse cuando hay tareas -->
