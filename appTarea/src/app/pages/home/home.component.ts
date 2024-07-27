@@ -93,4 +93,36 @@ removeLeadingSpaces() {
   }
 }
  */
+updateEdicion(index: number){
+  this.tareas.update(prevState =>{
+    return prevState.map((tarea, position)=> {
+      if (position === index) {
+        return {
+          ...tarea,
+          editando: true
+        }
+      }
+      return {
+        ...tarea,
+        editando: false
+      };
+    })
+  })
+}
+updateEdicionTitulo(index: number, event: Event){
+  const input = event.target as HTMLInputElement;
+  this.tareas.update(prevState =>{
+    return prevState.map((tarea, position)=> {
+      if (position === index) {
+        return {
+          ...tarea,
+          titulo: input.value,
+          editando : false
+        }
+      }
+      return tarea;
+    })
+  })
+}
+
 }

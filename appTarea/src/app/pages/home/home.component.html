@@ -25,14 +25,18 @@
     <!-- Esta sección debe estar oculta de forma predeterminada y mostrarse cuando hay tareas -->
       <section class="main">
         <ul class="todo-list">
-          <!--con el index as i me da la posicion de la tarea para usarla al momento de eliminar-->
-          <li *ngFor="let tarea of tareas(); index as i" [class.completed]="tarea.completado">
+          <!--con el index as i me da la posicion de la tarea para usarla al momento de eliminar
+           se usa la clase completed para tachar la tarea-->
+          <li (dblclick)="updateEdicion(i)" 
+          *ngFor="let tarea of tareas(); index as i" 
+          [class.editing]="tarea.editando"
+          [class.completed]="tarea.completado">
             <div class="view">
               <input class="toggle" type="checkbox" [checked]="tarea.completado" (change)="updateTarea(i)"/>
               <label>{{ tarea.titulo }}</label>
               <button class="destroy" (click)="deleteTarea(i)"></button>
             </div>
-            <input class="edit" value="Learn JavaScript" />
+            <input class="edit" (keydown.enter)="updateEdicionTitulo(i, $event)" [value]="tarea.titulo" />
           </li>
         <!--
           <li class="completed">
@@ -43,15 +47,15 @@
             </div>
             <input class="edit" value="Buy a unicorn" />
           </li>-->
-          <li class="editing">
+          <!--<li class="editing">
             <div class="view">
               <input class="toggle" type="checkbox" />
               <label>Make dishes</label>
               <button class="destroy"></button>
             </div>
             <input class="edit" value="Make dishes" />
-          </li>
-        <!---->
+          </li><-->
+        
         </ul>
       </section>
       <!-- Este pie de página debe estar oculto de forma predeterminada y mostrarse cuando hay tareas -->
