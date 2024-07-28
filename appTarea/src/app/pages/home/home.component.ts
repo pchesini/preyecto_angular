@@ -1,4 +1,4 @@
-import { Component, booleanAttribute, computed, numberAttribute, signal } from '@angular/core';
+import { Component, booleanAttribute, computed, numberAttribute, signal, effect, inject, Injector } from '@angular/core';
 import { Tarea } from '../interfaces/tarea';
 import { FormControl, Validators } from '@angular/forms'; 
 
@@ -17,25 +17,9 @@ export class HomeComponent {
      // this.noLeadingSpacesValidator() corregir esto
     ]
   }); 
- // submitted = false;
-/*   ngOnInit() {
-    this.formHome.valueChanges.subscribe(() => {
-      this.removeLeadingSpaces();
-    });
-  } */
 
-  tareas =  signal<Tarea[]>([
-   {
-    id : Date.now(),
-    titulo : 'crear Proyecto',
-    completado: false,
-   },
-   {
-    id : Date.now(),
-    titulo : 'crear Componente',
-    completado: false,
-   }
-  ]);
+
+  tareas =  signal<Tarea[]>([]);
 
   filter = signal< 'todas' | 'pendiente' | 'completado'>('todas');
   tareasByfilter = computed(() => {
@@ -49,6 +33,31 @@ export class HomeComponent {
     }
     return tareas;
   })
+
+  injector = inject(Injector);
+
+  constructor() {
+  
+  }
+  //obtengo las tareas del local 
+  ngOnInit() {
+    const storage = localStorage.getItem('tareas');
+    if(storage){
+      const tareas = JSON.parse(storage);  
+      this.tareas.set(tareas);
+    }
+    this.trackTareas();
+  }
+  trackTareas(){
+      // para hacer tracking y ejecutar una logica
+      effect(() =>{
+        const tareas = this.tareas();
+        console.log(tareas);
+        localStorage.setItem('tareas', JSON.stringify(tareas));
+      },{injector: this.injector});
+  }
+
+
   //agregar un nuevo elemento( ) 
   changeHandler(){
     if (this.formHome.valid){

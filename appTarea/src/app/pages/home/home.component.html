@@ -65,7 +65,7 @@
         <span class="todo-count">
         <!--le agrego la condicion de que si es una sola tarea la muestre en singular-->
           <strong>{{ tareasByfilter().length }}</strong> 
-          {{ tareas().length === 1 ? 'Tarea' : 'Tareas' }}
+          {{ tareasByfilter().length === 1 ? 'Tarea' : 'Tareas' }}
         </span>
         <!--usando ngIf
         <span *ngIf="tareas().length === 1; else miBloque">
