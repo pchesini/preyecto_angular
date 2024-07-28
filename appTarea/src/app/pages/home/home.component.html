@@ -64,7 +64,7 @@
         <!-- uso string interpolation -->
         <span class="todo-count">
         <!--le agrego la condicion de que si es una sola tarea la muestre en singular-->
-          <strong>{{ tareas().length }}</strong> 
+          <strong>{{ tareasByfilter().length }}</strong> 
           {{ tareas().length === 1 ? 'Tarea' : 'Tareas' }}
         </span>
         <!--usando ngIf
@@ -77,13 +77,13 @@
         <!-- Elimine esto si no implementa el enrutamiento -->
         <ul class="filters">
           <li>
-            <a (click)="changeFilter('todas')" class="selected">Todas</a>
+            <a (click)="changeFilter('todas')" [class.selected]="filter()==='todas'">Todas</a>
           </li>
           <li>
-            <a (click)="changeFilter('pendiente')">Pendiente</a>
+            <a (click)="changeFilter('pendiente')"[class.selected]="filter()==='pendiente'">Pendiente</a>
           </li>
           <li>
-            <a (click)="changeFilter('completado')">Completado</a>
+            <a (click)="changeFilter('completado')"[class.selected]="filter()==='completado'">Completado</a>
           </li>
         </ul>
         <!-- Oculto si no quedan elementos completos ↓ -->
